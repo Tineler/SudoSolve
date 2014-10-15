@@ -47,6 +47,7 @@ public class MainWindow {
 	 */
 	private void initializeUI() {
 		frmSudosolveThe = new JFrame();
+		frmSudosolveThe.setResizable(false);
 		frmSudosolveThe.setTitle("SudoSolve - The backtracking Sudoku Solver");
 		frmSudosolveThe.setBounds(100, 100, 380, 385);
 		frmSudosolveThe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
