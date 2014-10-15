@@ -10,6 +10,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
@@ -46,20 +48,20 @@ public class MainWindow {
 	private void initializeUI() {
 		frmSudosolveThe = new JFrame();
 		frmSudosolveThe.setTitle("SudoSolve - The backtracking Sudoku Solver");
-		frmSudosolveThe.setBounds(100, 100, 450, 500);
+		frmSudosolveThe.setBounds(100, 100, 380, 385);
 		frmSudosolveThe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSudosolveThe.getContentPane().setLayout(null);
 
 		JButton btnSolve = new JButton("Solve");
-		btnSolve.setBounds(327, 411, 117, 29);
+		btnSolve.setBounds(257, 296, 117, 29);
 		frmSudosolveThe.getContentPane().add(btnSolve);
 
 		JButton btnClear = new JButton("Clear");
-		btnClear.setBounds(198, 411, 117, 29);
+		btnClear.setBounds(128, 296, 117, 29);
 		frmSudosolveThe.getContentPane().add(btnClear);
 
 		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(6, 452, 438, 20);
+		progressBar.setBounds(6, 337, 368, 20);
 		frmSudosolveThe.getContentPane().add(progressBar);
 		
 		JSeparator separator = new JSeparator();
@@ -83,10 +85,14 @@ public class MainWindow {
 		separator_3.setForeground(Color.BLACK);
 		separator_3.setBounds(245, 6, 12, 276);
 		frmSudosolveThe.getContentPane().add(separator_3);
+		
+		JButton btnRandomize = new JButton("Randomize");
+		btnRandomize.setBounds(5, 296, 117, 29);
+		frmSudosolveThe.getContentPane().add(btnRandomize);
 
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 9; column++) {
-				SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 9, 1);
+				SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 9, 1);
 				JSpinner spinner = new JSpinner(spinnerNumberModel);
 				spinner.setBounds(6 + 41 * column, 6 + 31 * row, 37, 28);
 				frmSudosolveThe.getContentPane().add(spinner);
