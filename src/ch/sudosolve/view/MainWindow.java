@@ -10,6 +10,8 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
@@ -96,6 +98,18 @@ public class MainWindow {
 		frmSudosolve.getContentPane().add(btnSolve);
 
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// reset all spinner values to 0
+				for (int row = 0; row < 9; row++) {
+					for (int column = 0; column < 9; column++) {
+						JSpinner spinner = boardVisualization[row][column];
+						spinner.setValue(0);
+					}
+				}
+			}
+		});
 		btnClear.setBounds(128, 296, 117, 29);
 		frmSudosolve.getContentPane().add(btnClear);
 
