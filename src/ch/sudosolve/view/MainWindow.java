@@ -1,7 +1,8 @@
 package ch.sudosolve.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,36 +11,44 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import ch.sudosolve.controller.SudokuHelper;
+import ch.sudosolve.controller.SudokuSolverThread;
+import ch.sudosolve.controller.UserInterfaceUpdaterThread;
+import ch.sudosolve.model.Sudoku;
 
 public class MainWindow {
 
 	private JFrame frmSudosolve;
 	private JSpinner[][] boardVisualization;
+	private JProgressBar progressBar;
+	private JButton btnSolve;
+	private JButton btnClear;
+
+	private SudokuSolverThread solver;
+	private static MainWindow instance;
+
+	public static MainWindow getInstance() {
+		if (instance == null) {
+			instance = new MainWindow();
+		}
+		return instance;
+	}
 
 	/**
-	 * Launch the application.
+	 * Shows the window.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frmSudosolve.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void show() {
+		frmSudosolve.setVisible(true);
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	private MainWindow() {
 		boardVisualization = new JSpinner[9][9];
 		initializeUI();
+		instance = this;
 	}
 
 	/**
@@ -63,7 +72,7 @@ public class MainWindow {
 	}
 
 	private void initProgressBar() {
-		JProgressBar progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
 		progressBar.setBounds(6, 337, 368, 20);
 		frmSudosolve.getContentPane().add(progressBar);
 	}
@@ -93,11 +102,24 @@ public class MainWindow {
 	}
 
 	private void initButtons() {
-		JButton btnSolve = new JButton("Solve");
+		btnSolve = new JButton("Solve");
+		btnSolve.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (solver != null && !solver.isShutdown()) {
+					solver.shutdown();
+				} else {
+					Sudoku sudoku = SudokuHelper.convertBoardVisualizationToSudoku(boardVisualization);
+					solver = new SudokuSolverThread(sudoku);
+					UserInterfaceUpdaterThread interfaceUpdaterThread = new UserInterfaceUpdaterThread(solver);
+					solver.start();
+					interfaceUpdaterThread.start();
+				}
+			}
+		});
 		btnSolve.setBounds(257, 296, 117, 29);
 		frmSudosolve.getContentPane().add(btnSolve);
 
-		JButton btnClear = new JButton("Clear");
+		btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -124,5 +146,24 @@ public class MainWindow {
 				boardVisualization[row][column] = spinner;
 			}
 		}
+	}
+
+	/**
+	 * Updates the current values of the board visualization with the values provided by the given {@link Sudoku}.
+	 */
+	public void updateBoardVisualization(Sudoku sudoku) {
+		SudokuHelper.updateGivenBoardVisualizationWithSudokuValues(boardVisualization, sudoku);
+	}
+
+	public JProgressBar getProgressBar() {
+		return progressBar;
+	}
+
+	public JButton getBtnSolve() {
+		return btnSolve;
+	}
+	
+	public JButton getBtnClear() {
+		return btnClear;
 	}
 }

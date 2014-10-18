@@ -2,13 +2,13 @@ package ch.sudosolve.model;
 
 public class Field {
 	private boolean isPreset;
-	private byte number;
+	private int number;
 
-	public byte getNumber() {
+	public int getNumber() {
 		return number;
 	}
 
-	public void setNumber(byte number) {
+	public void setNumber(int number) {
 		this.number = number;
 	}
 
