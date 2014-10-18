@@ -112,10 +112,6 @@ public class MainWindow {
 		});
 		btnClear.setBounds(128, 296, 117, 29);
 		frmSudosolve.getContentPane().add(btnClear);
-
-		JButton btnRandomize = new JButton("Randomize");
-		btnRandomize.setBounds(5, 296, 117, 29);
-		frmSudosolve.getContentPane().add(btnRandomize);
 	}
 
 	private void initSpinners() {
