@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 public class MainWindow {
 
-	private JFrame frmSudosolveThe;
+	private JFrame frmSudosolve;
 	private JSpinner[][] boardVisualization;
 
 	/**
@@ -24,7 +24,7 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
-					window.frmSudosolveThe.setVisible(true);
+					window.frmSudosolve.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,56 +52,56 @@ public class MainWindow {
 	}
 
 	private void initFrame() {
-		frmSudosolveThe = new JFrame();
-		frmSudosolveThe.setResizable(false);
-		frmSudosolveThe.setTitle("SudoSolve - The backtracking Sudoku Solver");
-		frmSudosolveThe.setBounds(100, 100, 380, 385);
-		frmSudosolveThe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSudosolveThe.getContentPane().setLayout(null);
+		frmSudosolve = new JFrame();
+		frmSudosolve.setResizable(false);
+		frmSudosolve.setTitle("SudoSolve - The backtracking Sudoku Solver");
+		frmSudosolve.setBounds(100, 100, 380, 385);
+		frmSudosolve.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSudosolve.getContentPane().setLayout(null);
 	}
 
 	private void initProgressBar() {
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(6, 337, 368, 20);
-		frmSudosolveThe.getContentPane().add(progressBar);
+		frmSudosolve.getContentPane().add(progressBar);
 	}
 
 	private void initSeparators() {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setBounds(6, 92, 365, 12);
-		frmSudosolveThe.getContentPane().add(separator);
+		frmSudosolve.getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.BLACK);
 		separator_1.setBounds(6, 185, 365, 12);
-		frmSudosolveThe.getContentPane().add(separator_1);
+		frmSudosolve.getContentPane().add(separator_1);
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(122, 6, 12, 276);
-		frmSudosolveThe.getContentPane().add(separator_2);
+		frmSudosolve.getContentPane().add(separator_2);
 
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
 		separator_3.setForeground(Color.BLACK);
 		separator_3.setBounds(245, 6, 12, 276);
-		frmSudosolveThe.getContentPane().add(separator_3);
+		frmSudosolve.getContentPane().add(separator_3);
 	}
 
 	private void initButtons() {
 		JButton btnSolve = new JButton("Solve");
 		btnSolve.setBounds(257, 296, 117, 29);
-		frmSudosolveThe.getContentPane().add(btnSolve);
+		frmSudosolve.getContentPane().add(btnSolve);
 
 		JButton btnClear = new JButton("Clear");
 		btnClear.setBounds(128, 296, 117, 29);
-		frmSudosolveThe.getContentPane().add(btnClear);
+		frmSudosolve.getContentPane().add(btnClear);
 
 		JButton btnRandomize = new JButton("Randomize");
 		btnRandomize.setBounds(5, 296, 117, 29);
-		frmSudosolveThe.getContentPane().add(btnRandomize);
+		frmSudosolve.getContentPane().add(btnRandomize);
 	}
 
 	private void initSpinners() {
@@ -110,7 +110,7 @@ public class MainWindow {
 				SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 9, 1);
 				JSpinner spinner = new JSpinner(spinnerNumberModel);
 				spinner.setBounds(6 + 41 * column, 6 + 31 * row, 37, 28);
-				frmSudosolveThe.getContentPane().add(spinner);
+				frmSudosolve.getContentPane().add(spinner);
 				boardVisualization[row][column] = spinner;
 			}
 		}
