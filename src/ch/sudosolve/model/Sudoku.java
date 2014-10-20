@@ -1,5 +1,7 @@
 package ch.sudosolve.model;
 
+import java.util.Arrays;
+
 public class Sudoku implements Cloneable {
 	private Field[][] board;
 
@@ -26,6 +28,40 @@ public class Sudoku implements Cloneable {
 	 * all requirements, false otherwise.
 	 */
 	public boolean isValid() {
-		return false;
+		for (int row = 0; row < 9; row++) {
+			int[] numbersOfRow = new int[9];
+			for (int column = 0; column < 9; column++) {
+				Field currentField = board[row][column];
+				numbersOfRow[column] = currentField.getNumber();
+			}
+			if (!checkIfArrayContainsAllNumbers(numbersOfRow)) {
+				return false;
+			}
+		}
+
+		for (int column = 0; column < 9; column++) {
+			int[] numbersOfColumn = new int[9];
+			for (int row = 0; row < 9; row++) {
+				Field currentField = board[row][column];
+				numbersOfColumn[row] = currentField.getNumber();
+			}
+			if (!checkIfArrayContainsAllNumbers(numbersOfColumn)) {
+				return false;
+			}
+		}
+
+		// TODO: add validation logic for a 3x3 square
+
+		return true;
+	}
+
+	private boolean checkIfArrayContainsAllNumbers(int[] numbers) {
+		Arrays.sort(numbers);
+		for (int i = 0; i < 9; i++) {
+			if (numbers[i] != i + 1) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -1,5 +1,7 @@
 package ch.sudosolve.controller;
 
+import java.util.Random;
+
 import ch.sudosolve.model.Field;
 import ch.sudosolve.model.Sudoku;
 
@@ -22,8 +24,11 @@ public class SudokuSolverThread extends Thread {
 	public void run() {
 		super.run();
 
+		Random random = new Random();
 		while (!shutdown) {
-			// TODO solve!
+			// This is an example implementation that trys to find a valid sudoku using random generator.
+			// Chance to find a valid sudoku is very low.
+			// TODO: Implement the solving algorithm using backtracking.
 			Field[][] board = sudoku.getBoard();
 			for (int row = 0; row < 9; row++) {
 				for (int column = 0; column < 9; column++) {
@@ -31,12 +36,7 @@ public class SudokuSolverThread extends Thread {
 					if (field.isPreset()) {
 						continue;
 					}
-					int currentNumber = field.getNumber();
-					if (currentNumber == 9) {
-						field.setNumber(0);
-					} else {
-						field.setNumber(++currentNumber);
-					}
+					field.setNumber(random.nextInt(10) + 1);
 				}
 			}
 			if (sudoku.isValid()) {
