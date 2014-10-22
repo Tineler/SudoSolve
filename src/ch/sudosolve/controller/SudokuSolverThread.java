@@ -36,7 +36,8 @@ public class SudokuSolverThread extends Thread {
 					if (field.isPreset()) {
 						continue;
 					}
-					field.setNumber(random.nextInt(10) + 1);
+					int randomValue = random.nextInt(10);
+					field.setNumber(randomValue);
 				}
 			}
 			if (sudoku.isValid()) {
