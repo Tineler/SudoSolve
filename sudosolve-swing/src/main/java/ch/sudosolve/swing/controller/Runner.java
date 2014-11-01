@@ -1,6 +1,6 @@
-package ch.sudosolve.controller;
+package ch.sudosolve.swing.controller;
 
-import ch.sudosolve.view.MainWindow;
+import ch.sudosolve.swing.view.MainWindow;
 
 public class Runner {
 	private static MainWindow window;

@@ -1,4 +1,4 @@
-package ch.sudosolve.model;
+package ch.sudosolve.core.model;
 
 public class Field {
 	private boolean isPreset;

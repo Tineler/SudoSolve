@@ -1,9 +1,9 @@
-package ch.sudosolve.controller;
+package ch.sudosolve.swing.controller;
+
+import ch.sudosolve.core.model.Field;
+import ch.sudosolve.core.model.Sudoku;
 
 import java.util.Random;
-
-import ch.sudosolve.model.Field;
-import ch.sudosolve.model.Sudoku;
 
 /**
  * Solves a given {@link Sudoku} and always provides the current solving state so it can be displayed on the UI.

@@ -1,4 +1,4 @@
-package ch.sudosolve.model;
+package ch.sudosolve.core.model;
 
 import java.util.Arrays;
 

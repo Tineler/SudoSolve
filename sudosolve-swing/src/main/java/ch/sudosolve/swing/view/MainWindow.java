@@ -1,21 +1,14 @@
-package ch.sudosolve.view;
+package ch.sudosolve.swing.view;
 
-import java.awt.Color;
+import ch.sudosolve.core.model.Sudoku;
+import ch.sudosolve.swing.controller.SudokuHelper;
+import ch.sudosolve.swing.controller.SudokuSolverThread;
+import ch.sudosolve.swing.controller.UserInterfaceUpdaterThread;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JProgressBar;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-
-import ch.sudosolve.controller.SudokuHelper;
-import ch.sudosolve.controller.SudokuSolverThread;
-import ch.sudosolve.controller.UserInterfaceUpdaterThread;
-import ch.sudosolve.model.Sudoku;
 
 public class MainWindow {
 
@@ -162,7 +155,7 @@ public class MainWindow {
 	public JButton getBtnSolve() {
 		return btnSolve;
 	}
-	
+
 	public JButton getBtnClear() {
 		return btnClear;
 	}
