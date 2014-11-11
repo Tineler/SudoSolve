@@ -1,10 +1,10 @@
-package ch.sudosolve.controller;
+package ch.sudosolve.swing.controller;
 
-import javax.swing.JButton;
-import javax.swing.JProgressBar;
+import ch.sudosolve.core.model.Sudoku;
+import ch.sudosolve.swing.view.MainWindow;
 
-import ch.sudosolve.model.Sudoku;
-import ch.sudosolve.view.MainWindow;
+import javax.swing.*;
+
 
 /**
  * Updates the user interface with the current state of the solving process.

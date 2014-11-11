@@ -1,12 +1,11 @@
-package ch.sudosolve.controller;
+package ch.sudosolve.swing.controller;
 
-import javax.swing.JSpinner;
+import ch.sudosolve.core.model.Field;
+import ch.sudosolve.core.model.Sudoku;
 
-import ch.sudosolve.model.Field;
-import ch.sudosolve.model.Sudoku;
+import javax.swing.*;
 
 public class SudokuHelper {
-
 	/**
 	 * Convert a two dimensional array of {@link JSpinner JSpinners} to a {@link Sudoku}.
 	 */
