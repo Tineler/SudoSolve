@@ -1,14 +1,16 @@
 package ch.sudosolve.swing.view;
 
-import ch.sudosolve.core.model.Sudoku;
-import ch.sudosolve.swing.controller.SudokuHelper;
-import ch.sudosolve.swing.controller.SudokuSolverThread;
-import ch.sudosolve.swing.controller.UserInterfaceUpdaterThread;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+import javax.swing.JSeparator;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 
 public class MainWindow {
 
@@ -18,7 +20,6 @@ public class MainWindow {
 	private JButton btnSolve;
 	private JButton btnClear;
 
-	private SudokuSolverThread solver;
 	private static MainWindow instance;
 
 	public static MainWindow getInstance() {
@@ -96,19 +97,6 @@ public class MainWindow {
 
 	private void initButtons() {
 		btnSolve = new JButton("Solve");
-		btnSolve.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (solver != null && !solver.isShutdown()) {
-					solver.shutdown();
-				} else {
-					Sudoku sudoku = SudokuHelper.convertBoardVisualizationToSudoku(boardVisualization);
-					solver = new SudokuSolverThread(sudoku);
-					UserInterfaceUpdaterThread interfaceUpdaterThread = new UserInterfaceUpdaterThread(solver);
-					solver.start();
-					interfaceUpdaterThread.start();
-				}
-			}
-		});
 		btnSolve.setBounds(257, 296, 117, 29);
 		frmSudosolve.getContentPane().add(btnSolve);
 
@@ -139,13 +127,6 @@ public class MainWindow {
 				boardVisualization[row][column] = spinner;
 			}
 		}
-	}
-
-	/**
-	 * Updates the current values of the board visualization with the values provided by the given {@link Sudoku}.
-	 */
-	public void updateBoardVisualization(Sudoku sudoku) {
-		SudokuHelper.updateGivenBoardVisualizationWithSudokuValues(boardVisualization, sudoku);
 	}
 
 	public JProgressBar getProgressBar() {
