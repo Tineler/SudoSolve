@@ -7,19 +7,19 @@ import javax.swing.*;
 
 public class SudokuHelper {
 	/**
-	 * Convert a two dimensional array of {@link JSpinner JSpinners} to a {@link Sudoku}.
+	 * Convert a two dimensional array of {@link JFormattedTextField Number Fields} to a {@link Sudoku}.
 	 */
-	public static Sudoku convertBoardVisualizationToSudoku(JSpinner[][] boardVisualization) {
+	public static Sudoku convertBoardVisualizationToSudoku(JFormattedTextField[][] boardVisualization) {
 		Sudoku sudoku = new Sudoku();
 		Field[][] board = sudoku.getBoard();
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 9; column++) {
-				JSpinner spinner = boardVisualization[row][column];
-				int spinnerValue = (int) spinner.getValue();
+                JFormattedTextField numberField = boardVisualization[row][column];
+				int numberFieldValue = (int) numberField.getValue();
 
 				Field field = board[row][column];
-				field.setNumber(spinnerValue);
-				if (spinnerValue != 0) {
+				field.setNumber(numberFieldValue);
+				if (numberFieldValue != 0) {
 					field.setPreset(true);
 				}
 			}
@@ -28,15 +28,15 @@ public class SudokuHelper {
 	}
 
 	/**
-	 * Convert a two dimensional array of {@link JSpinner JSpinners} to a {@link Sudoku}.
+	 * Convert a two dimensional array of {@link JFormattedTextField Number Fields} to a {@link Sudoku}.
 	 */
-	public static void updateGivenBoardVisualizationWithSudokuValues(JSpinner[][] boardVisualization, Sudoku sudoku) {
+	public static void updateGivenBoardVisualizationWithSudokuValues(JFormattedTextField[][] boardVisualization, Sudoku sudoku) {
 		Field[][] board = sudoku.getBoard();
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 9; column++) {
 				Field field = board[row][column];
-				JSpinner spinner = boardVisualization[row][column];
-				spinner.setValue(field.getNumber());
+                JFormattedTextField numberField = boardVisualization[row][column];
+                numberField.setValue(field.getNumber());
 			}
 		}
 	}

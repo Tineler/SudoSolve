@@ -6,14 +6,18 @@ import ch.sudosolve.swing.controller.SudokuSolverThread;
 import ch.sudosolve.swing.controller.UserInterfaceUpdaterThread;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 
 public class MainWindow {
 
 	private JFrame frmSudosolve;
-	private JSpinner[][] boardVisualization;
+	private JFormattedTextField[][] boardVisualization;
 	private JProgressBar progressBar;
 	private JButton btnSolve;
 	private JButton btnClear;
@@ -39,7 +43,7 @@ public class MainWindow {
 	 * Create the application.
 	 */
 	private MainWindow() {
-		boardVisualization = new JSpinner[9][9];
+		boardVisualization = new JFormattedTextField[9][9];
 		initializeUI();
 		instance = this;
 	}
@@ -52,10 +56,11 @@ public class MainWindow {
 		initButtons();
 		initProgressBar();
 		initSeparators();
-		initSpinners();
+		initFields();
+        initFocusListener();
 	}
 
-	private void initFrame() {
+    private void initFrame() {
 		frmSudosolve = new JFrame();
 		frmSudosolve.setResizable(false);
 		frmSudosolve.setTitle("SudoSolve - The backtracking Sudoku Solver");
@@ -116,11 +121,11 @@ public class MainWindow {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// reset all spinner values to 0
+				// reset all field values to 0
 				for (int row = 0; row < 9; row++) {
 					for (int column = 0; column < 9; column++) {
-						JSpinner spinner = boardVisualization[row][column];
-						spinner.setValue(0);
+                        JFormattedTextField field = boardVisualization[row][column];
+                        field.setValue(0);
 					}
 				}
 			}
@@ -129,17 +134,50 @@ public class MainWindow {
 		frmSudosolve.getContentPane().add(btnClear);
 	}
 
-	private void initSpinners() {
+	private void initFields() {
+        NumberFormat format = NumberFormat.getInstance();
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(0);
+        formatter.setMaximum(9);
+
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 9; column++) {
-				SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 9, 1);
-				JSpinner spinner = new JSpinner(spinnerNumberModel);
-				spinner.setBounds(6 + 41 * column, 6 + 31 * row, 37, 28);
-				frmSudosolve.getContentPane().add(spinner);
-				boardVisualization[row][column] = spinner;
+
+                JFormattedTextField numberField = new JFormattedTextField(formatter);
+                numberField.setBounds(6 + 41 * column, 6 + 31 * row, 30, 20);
+                numberField.setValue(0);
+				frmSudosolve.getContentPane().add(numberField);
+				boardVisualization[row][column] = numberField;
 			}
 		}
 	}
+
+    /**
+     * Source from:
+     * http://stackoverflow.com/questions/1178312/how-to-select-all-text-in-a-jformattedtextfield-when-it-gets-focus
+     */
+    private void initFocusListener() {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .addPropertyChangeListener("permanentFocusOwner", new PropertyChangeListener()
+                {
+                    public void propertyChange(final PropertyChangeEvent e)
+                    {
+                        if (e.getNewValue() instanceof JFormattedTextField)
+                        {
+                            SwingUtilities.invokeLater(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    JFormattedTextField textField = (JFormattedTextField)e.getNewValue();
+                                    textField.selectAll();
+                                }
+                            });
+
+                        }
+                    }
+                });
+    }
 
 	/**
 	 * Updates the current values of the board visualization with the values provided by the given {@link Sudoku}.
